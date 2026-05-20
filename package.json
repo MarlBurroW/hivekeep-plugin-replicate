@@ -1,0 +1,39 @@
+{
+  "name": "kinbot-plugin-replicate",
+  "version": "0.2.0",
+  "description": "Bring Replicate-hosted models to KinBot — LLM (Llama 3, Mistral, Mixtral), Image (Flux Schnell, Stable Diffusion 3.5), and Embedding — all behind one API token.",
+  "author": "MarlBurroW",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarlBurroW/kinbot-plugin-replicate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MarlBurroW/kinbot-plugin-replicate/issues"
+  },
+  "homepage": "https://github.com/MarlBurroW/kinbot-plugin-replicate#readme",
+  "main": "index.ts",
+  "files": [
+    "index.ts",
+    "replicateApi.ts",
+    "jsonToolProtocol.ts",
+    "plugin.json",
+    "README.md",
+    "logo.svg"
+  ],
+  "keywords": [
+    "kinbot-plugin",
+    "kinbot",
+    "replicate",
+    "llm",
+    "image",
+    "embedding"
+  ],
+  "peerDependencies": {
+    "@kinbot-developer/sdk": "^0.2.0"
+  },
+  "devDependencies": {
+    "@kinbot-developer/sdk": "^0.2.0",
+    "typescript": "^6.0.3"
+  }
+}
