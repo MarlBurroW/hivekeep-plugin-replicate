@@ -11,7 +11,7 @@ import {
   parseToolCallsFromOutput,
   toolProtocolChunks,
 } from './jsonToolProtocol'
-import type { KinbotMessage, KinbotTool } from '@kinbot-developer/sdk'
+import type { HivekeepMessage, HivekeepTool } from '@hivekeep/sdk'
 
 // ─── instructTunedFromSchema ────────────────────────────────────────────────
 
@@ -52,7 +52,7 @@ describe('instructTunedFromSchema (schema heuristic)', () => {
 
 // ─── composeToolSystemPrompt ────────────────────────────────────────────────
 
-const sampleTool: KinbotTool = {
+const sampleTool: HivekeepTool = {
   name: 'get_contact',
   description: 'Look up a contact by id.',
   inputSchema: {
@@ -100,7 +100,7 @@ describe('composeToolSystemPrompt', () => {
 
 describe('renderHistoryForToolProtocol', () => {
   it('renders a plain user → assistant text exchange in [INST] format', () => {
-    const messages: KinbotMessage[] = [
+    const messages: HivekeepMessage[] = [
       { role: 'user', content: [{ type: 'text', text: 'Hello' }] },
       { role: 'assistant', content: [{ type: 'text', text: 'Hi there!' }] },
     ]
@@ -109,7 +109,7 @@ describe('renderHistoryForToolProtocol', () => {
   })
 
   it('renders past assistant tool_use blocks as <tool_call> JSON so the model sees its own past calls', () => {
-    const messages: KinbotMessage[] = [
+    const messages: HivekeepMessage[] = [
       { role: 'user', content: [{ type: 'text', text: 'Who is Alice?' }] },
       {
         role: 'assistant',
@@ -123,7 +123,7 @@ describe('renderHistoryForToolProtocol', () => {
   })
 
   it('renders user-side tool_result blocks as <tool_result name="..."> with the originating tool name resolved', () => {
-    const messages: KinbotMessage[] = [
+    const messages: HivekeepMessage[] = [
       { role: 'user', content: [{ type: 'text', text: 'Who is Alice?' }] },
       {
         role: 'assistant',
@@ -139,7 +139,7 @@ describe('renderHistoryForToolProtocol', () => {
   })
 
   it('marks error results with an error="true" attribute', () => {
-    const messages: KinbotMessage[] = [
+    const messages: HivekeepMessage[] = [
       {
         role: 'assistant',
         content: [{ type: 'tool-use', id: 'c1', name: 'risky_op', args: {} }],
@@ -154,7 +154,7 @@ describe('renderHistoryForToolProtocol', () => {
   })
 
   it('drops image blocks silently (text-completion models can\'t render them)', () => {
-    const messages: KinbotMessage[] = [
+    const messages: HivekeepMessage[] = [
       {
         role: 'user',
         content: [

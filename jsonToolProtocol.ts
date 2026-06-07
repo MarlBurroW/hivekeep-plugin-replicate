@@ -11,7 +11,7 @@
  *     <tool_call>{"name":"<tool_name>","arguments":{...}}</tool_call>
  *
  *   The plugin parses every `<tool_call>` block in the response, emits
- *   them as KinBot `tool-use` chunks back to the engine, and stops the
+ *   them as Hivekeep `tool-use` chunks back to the engine, and stops the
  *   stream with `finish.reason: 'tool-calls'`.
  *
  *   On the next turn, the engine sends back `ToolResultBlock`s in the
@@ -34,12 +34,12 @@
 
 import type {
   ChatChunk,
-  KinbotMessage,
-  KinbotTool,
+  HivekeepMessage,
+  HivekeepTool,
   SystemPrompt,
   ToolUseBlock,
   ToolResultBlock,
-} from '@kinbot-developer/sdk'
+} from '@hivekeep/sdk'
 
 // ─── Heuristic ──────────────────────────────────────────────────────────────
 
@@ -64,11 +64,11 @@ export function instructTunedFromSchema(
 /**
  * Compose the system prompt with a description of the available tools
  * and the JSON tool-call protocol. The original system blocks come
- * first so the Kin's identity/instructions stay at the top.
+ * first so the Agent's identity/instructions stay at the top.
  */
 export function composeToolSystemPrompt(
   baseSystem: SystemPrompt | undefined,
-  tools: ReadonlyArray<KinbotTool>,
+  tools: ReadonlyArray<HivekeepTool>,
 ): string {
   const baseText = (baseSystem ?? []).map((b) => b.text).join('\n\n')
   const toolDescriptions = tools
@@ -102,7 +102,7 @@ function indent(s: string, prefix: string): string {
 // ─── Message-history rendering ──────────────────────────────────────────────
 
 /**
- * Convert a KinbotMessage[] into a single text prompt the completion
+ * Convert a HivekeepMessage[] into a single text prompt the completion
  * model can consume. The format mirrors the popular [INST]…[/INST]
  * convention but enriched with explicit role markers and the
  * `<tool_call>` / `<tool_result>` blocks for past tool round-trips.
@@ -113,7 +113,7 @@ function indent(s: string, prefix: string): string {
  * multi-turn behaviour. We render them inline so the model has
  * memory of what it called and what came back.
  */
-export function renderHistoryForToolProtocol(messages: KinbotMessage[]): string {
+export function renderHistoryForToolProtocol(messages: HivekeepMessage[]): string {
   const blocks: string[] = []
   for (const m of messages) {
     if (m.role === 'user') {
@@ -145,7 +145,7 @@ export function renderHistoryForToolProtocol(messages: KinbotMessage[]): string 
   return blocks.join('\n')
 }
 
-function lastToolNameById(messages: KinbotMessage[], toolUseId: string): string {
+function lastToolNameById(messages: HivekeepMessage[], toolUseId: string): string {
   for (let i = messages.length - 1; i >= 0; i--) {
     const m = messages[i]
     if (m?.role !== 'assistant') continue
@@ -230,7 +230,7 @@ export function parseToolCallsFromOutput(
 }
 
 function randomId(): string {
-  // 32-bit hex is plenty for in-turn correlation; KinBot's tool
+  // 32-bit hex is plenty for in-turn correlation; Hivekeep's tool
   // executor generates its own correlation IDs at a higher layer.
   return 'rep_' + Math.random().toString(36).slice(2, 10)
 }
@@ -238,7 +238,7 @@ function randomId(): string {
 // ─── chat() integration helper ──────────────────────────────────────────────
 
 /**
- * Convert a final completion text into the chunk stream KinBot
+ * Convert a final completion text into the chunk stream Hivekeep
  * expects. When tool_call blocks are present, emits each as a
  * `tool-use` chunk and finishes with `reason: 'tool-calls'`; when
  * none are present, falls back to a single `text-delta` + `stop`.

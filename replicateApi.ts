@@ -80,7 +80,7 @@ export interface ReplicateCollectionModel {
     created_at?: string
     /** OpenAPI schema describing the model's input/output. The plugin
      *  uses this to discover input properties like `max_tokens` /
-     *  `max_new_tokens` when surfacing model metadata to KinBot. */
+     *  `max_new_tokens` when surfacing model metadata to Hivekeep. */
     openapi_schema?: Record<string, unknown>
   } | null
 }

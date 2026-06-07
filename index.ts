@@ -1,5 +1,5 @@
 /**
- * KinBot plugin: Replicate.
+ * Hivekeep plugin: Replicate.
  *
  * A single plugin that contributes three native providers:
  *   - LLMProvider        for Llama 3 / Mistral / Mixtral hosted on Replicate
@@ -10,7 +10,7 @@
  * provider family with a single API key + ~250 lines of code. Models
  * are curated lists hardcoded here — Replicate hosts tens of thousands
  * of community models, so a `listModels()` returning all of them would
- * overwhelm KinBot's UI; this plugin's intent is to surface a useful
+ * overwhelm Hivekeep's UI; this plugin's intent is to surface a useful
  * default set.
  *
  * NB: this provider does not currently stream tokens (Replicate
@@ -34,14 +34,14 @@ import type {
   ImageProvider,
   ImageRequest,
   ImageResult,
-  KinbotMessage,
+  HivekeepMessage,
   LLMModel,
   LLMProvider,
   PluginContext,
   PluginExports,
   ProviderConfig,
   SystemPrompt,
-} from '@kinbot-developer/sdk'
+} from '@hivekeep/sdk'
 import { Replicate, ReplicateApiError, type ReplicateCollectionModel } from './replicateApi'
 import {
   instructTunedFromSchema,
@@ -132,7 +132,7 @@ const EMBEDDING_COLLECTION_SLUG = 'embedding-models'
 /**
  * Pretty-print a Replicate model name. Replicate uses
  * `<owner>/<slug-with-dashes>` for IDs; the display name we surface to
- * KinBot uses the slug with dashes replaced by spaces, prefixed with the
+ * Hivekeep uses the slug with dashes replaced by spaces, prefixed with the
  * description's first sentence when available.
  */
 function displayNameOf(m: ReplicateCollectionModel): string {
@@ -405,12 +405,12 @@ function flattenSystem(system: SystemPrompt | undefined): string {
 
 /**
  * Replicate-hosted instruct models accept a plain `prompt` plus a separate
- * `system_prompt`. KinBot's `KinbotMessage[]` is richer than that (multi-
+ * `system_prompt`. Hivekeep's `HivekeepMessage[]` is richer than that (multi-
  * turn, tool use, images), so we squash it down to the conventional
  * `[INST] ... [/INST]` style — good enough for chat without tools, which
  * is the shape these models actually expect.
  */
-function buildPrompt(messages: KinbotMessage[]): string {
+function buildPrompt(messages: HivekeepMessage[]): string {
   const lines: string[] = []
   for (const m of messages) {
     const text = m.content

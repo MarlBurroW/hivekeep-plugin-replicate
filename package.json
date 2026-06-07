@@ -1,17 +1,17 @@
 {
-  "name": "kinbot-plugin-replicate",
-  "version": "0.2.0",
-  "description": "Bring Replicate-hosted models to KinBot — LLM (Llama 3, Mistral, Mixtral), Image (Flux Schnell, Stable Diffusion 3.5), and Embedding — all behind one API token.",
+  "name": "hivekeep-plugin-replicate",
+  "version": "0.3.0",
+  "description": "Bring Replicate-hosted models to Hivekeep — LLM (Llama 3, Mistral, Mixtral), Image (Flux Schnell, Stable Diffusion 3.5), and Embedding — all behind one API token.",
   "author": "MarlBurroW",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MarlBurroW/kinbot-plugin-replicate.git"
+    "url": "git+https://github.com/MarlBurroW/hivekeep-plugin-replicate.git"
   },
   "bugs": {
-    "url": "https://github.com/MarlBurroW/kinbot-plugin-replicate/issues"
+    "url": "https://github.com/MarlBurroW/hivekeep-plugin-replicate/issues"
   },
-  "homepage": "https://github.com/MarlBurroW/kinbot-plugin-replicate#readme",
+  "homepage": "https://github.com/MarlBurroW/hivekeep-plugin-replicate#readme",
   "main": "index.ts",
   "files": [
     "index.ts",
@@ -22,18 +22,18 @@
     "logo.svg"
   ],
   "keywords": [
-    "kinbot-plugin",
-    "kinbot",
+    "hivekeep-plugin",
+    "hivekeep",
     "replicate",
     "llm",
     "image",
     "embedding"
   ],
   "peerDependencies": {
-    "@kinbot-developer/sdk": "^0.2.0"
+    "@hivekeep/sdk": "^0.10.0"
   },
   "devDependencies": {
-    "@kinbot-developer/sdk": "^0.2.0",
+    "@hivekeep/sdk": "^0.10.0",
     "typescript": "^6.0.3"
   }
 }

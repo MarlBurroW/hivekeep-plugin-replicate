@@ -6,7 +6,7 @@ import type {
   ImageProvider,
   LLMProvider,
   PluginContext,
-} from '@kinbot-developer/sdk'
+} from '@hivekeep/sdk'
 
 // ─── Fake ctx + canned HTTP responses ────────────────────────────────────────
 
@@ -364,7 +364,7 @@ describe('replicate plugin — LLM provider', () => {
     pushResponse(200, {
       id: 'pred_1',
       status: 'succeeded',
-      output: ['Hello, ', 'KinBot!'],
+      output: ['Hello, ', 'Hivekeep!'],
       error: null,
       metrics: { input_token_count: 7, output_token_count: 3 },
     })
@@ -385,7 +385,7 @@ describe('replicate plugin — LLM provider', () => {
     for await (const c of stream) chunks.push(c)
 
     expect(chunks).toHaveLength(2)
-    expect(chunks[0]).toEqual({ type: 'text-delta', text: 'Hello, KinBot!' })
+    expect(chunks[0]).toEqual({ type: 'text-delta', text: 'Hello, Hivekeep!' })
     expect(chunks[1]?.type).toBe('finish')
     expect((chunks[1] as { usage: { inputTokens?: number } }).usage.inputTokens).toBe(7)
 
@@ -1110,7 +1110,7 @@ describe('replicate plugin — Embedding provider', () => {
 
     const result = await embed.embed(
       { id: 'replicate/all-mpnet-base-v2', name: 'mpnet', dimensions: 768, maxInputTokens: 384 },
-      { text: 'kinbot is great' },
+      { text: 'hivekeep is great' },
       { apiToken: 'r8_test' },
     )
 
@@ -1130,7 +1130,7 @@ describe('replicate plugin — Embedding provider', () => {
 
     const result = await embed.embed(
       { id: 'replicate/all-mpnet-base-v2', name: 'mpnet', dimensions: 768, maxInputTokens: 384 },
-      { text: 'kinbot' },
+      { text: 'hivekeep' },
       { apiToken: 'r8_test' },
     )
     expect(result.vector).toEqual([0.1, 0.2, 0.3])
