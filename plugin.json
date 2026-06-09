@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@hivekeep/sdk/schemas/plugin-manifest.schema.json",
   "name": "hivekeep-plugin-replicate",
   "displayName": "Replicate",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "Bring Replicate-hosted models to Hivekeep — LLM (Llama 3, Mistral, Mixtral), Image (Flux Schnell, Stable Diffusion 3.5), and Embedding — all behind one API token.",
   "author": "MarlBurroW",
   "license": "MIT",

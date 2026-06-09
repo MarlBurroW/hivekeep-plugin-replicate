@@ -1,6 +1,6 @@
 {
   "name": "hivekeep-plugin-replicate",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Bring Replicate-hosted models to Hivekeep — LLM (Llama 3, Mistral, Mixtral), Image (Flux Schnell, Stable Diffusion 3.5), and Embedding — all behind one API token.",
   "author": "MarlBurroW",
   "license": "MIT",
